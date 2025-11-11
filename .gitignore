@@ -36,6 +36,4 @@ Thumbs.db
 *.tmp
 *.log
 
-# Render or deployment build
-backend/dist/
-frontend/dist/
+
