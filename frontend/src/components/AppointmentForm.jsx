@@ -67,7 +67,9 @@ const AppointmentForm = () => {
       // Send the booking data to the backend using axios
       const response = await axios.post(
         'https://r-r-salon-website.onrender.com/api/v1/user/book',
-        bookingData,{withCredentials:true,}
+        bookingData,{withCredentials:true,headers: {
+      "Content-Type": "application/json",
+    },}
       );
 
       if (response.status === 201) {

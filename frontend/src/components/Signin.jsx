@@ -21,7 +21,11 @@ const SignIn = () => {
     try {
       // const response = await axios.post('https://r-r-salon-website.onrender.com/api/v1/user/login', formData);
       const response = await axios.post('https://r-r-salon-website.onrender.com/api/v1/user/login', formData, {
-        withCredentials: true, // needed if you're using cookies/session
+        withCredentials: true,
+        headers: {
+      "Content-Type": "application/json",
+    },
+         // needed if you're using cookies/session
       });
       if (response.data.success) {
         // Store token in localStorage for session management

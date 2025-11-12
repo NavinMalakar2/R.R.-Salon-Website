@@ -16,7 +16,9 @@ const SignUp = () => {
     setError(null);
 
     try {
-      const response = await axios.post('https://r-r-salon-website.onrender.com/api/v1/user/ragister', formData,{withCredentials:true,});
+      const response = await axios.post('https://r-r-salon-website.onrender.com/api/v1/user/ragister', formData,{withCredentials:true,headers: {
+      "Content-Type": "application/json",
+    },});
 
       if (response.data.success) {
         alert(response.data.message);

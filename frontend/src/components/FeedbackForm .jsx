@@ -28,7 +28,9 @@ const FeedbackForm = () => {
       setLoading(true);
       console.log('Feedback Data:', feedback);  // Check the data being sent
 
-      const response = await axios.post('https://r-r-salon-website.onrender.com/api/v1/user/feedback', feedback,{withCredentials:true,});
+      const response = await axios.post('https://r-r-salon-website.onrender.com/api/v1/user/feedback', feedback,{withCredentials:true,headers: {
+      "Content-Type": "application/json",
+    },});
 
       if (response.status === 201) {
         alert('Thank you for your feedback!');
