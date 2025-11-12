@@ -5,15 +5,28 @@ import userRouter from './routes/user.route.js';
 import cors from 'cors'
 
 dotenv.config();
-
+// Use FRONTEND_URL from env; allow localhost in dev
+const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:5173';
 // Initialize app
 const app = express();
-app.use(
-  cors({
-    origin: "http://localhost:5173",
-    credentials: true
-  })
-);
+// app.use(
+//   cors({
+//     origin: "http://localhost:5173",
+//     credentials: true
+//   })
+// );
+const corsOptions = {
+  origin: (origin, callback) => {
+    // allow requests with no origin (like mobile apps, curl, postman)
+    if (!origin) return callback(null, true);
+    if (origin === FRONTEND_URL || origin.includes('localhost')) {
+      return callback(null, true);
+    }
+    return callback(new Error('CORS policy: Not allowed by CORS'), false);
+  },
+  credentials: true,
+};
+app.use(cors(corsOptions));
 // Middleware for parsing JSON
 app.use(express.json());
 
@@ -25,7 +38,7 @@ app.use('/api/v1/user',userRouter);
 
 // Default route
 app.get('/', (req, res) => {
-    res.send('Hello World');
+    res.send('server is runing');
 });
 
 
@@ -36,21 +49,5 @@ app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
     // Database connection
         connectDB();
-});
-
-
-
-// for add frontend on render
-import path from "path";
-import { fileURLToPath } from "url";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-// Serve frontend build
-app.use(express.static(path.join(__dirname, "../dist")));
-
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "../dist", "index.html"));
 });
 

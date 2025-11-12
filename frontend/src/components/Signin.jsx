@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { API_BASE } from '../api';
 
 const SignIn = () => {
   const [formData, setFormData] = useState({ email: '', password: '' });
@@ -18,7 +19,10 @@ const SignIn = () => {
     setError('');
 
     try {
-      const response = await axios.post('http://localhost:4000/api/v1/user/login', formData);
+      // const response = await axios.post('http://localhost:4000/api/v1/user/login', formData);
+      const response = await axios.post(`${API_BASE}/user/login`, formData, {
+        withCredentials: true, // needed if you're using cookies/session
+      });
       if (response.data.success) {
         // Store token in localStorage for session management
         localStorage.setItem('token', response.data.token);

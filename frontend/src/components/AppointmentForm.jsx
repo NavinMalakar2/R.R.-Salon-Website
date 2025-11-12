@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios"; // Import axios to make API requests
-
+import { API_BASE } from "../api";
 const AppointmentForm = () => {
   const [formData, setFormData] = useState({
     name: "",
@@ -66,8 +66,8 @@ const AppointmentForm = () => {
     try {
       // Send the booking data to the backend using axios
       const response = await axios.post(
-        "http://localhost:4000/api/v1/user/book",
-        bookingData
+        `${API_BASE}/user/book`,
+        bookingData,{withCredentials:true,}
       );
 
       if (response.status === 201) {

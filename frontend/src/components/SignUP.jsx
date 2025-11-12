@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-
+import { API_BASE } from '../api';
 const SignUp = () => {
   const [formData, setFormData] = useState({ username: '', email: '', password: '' });
   const [error, setError] = useState(null);
@@ -16,7 +16,7 @@ const SignUp = () => {
     setError(null);
 
     try {
-      const response = await axios.post('http://localhost:4000/api/v1/user/ragister', formData);
+      const response = await axios.post(`${API_BASE}/user/ragister`, formData,{withCredentials:true,});
 
       if (response.data.success) {
         alert(response.data.message);

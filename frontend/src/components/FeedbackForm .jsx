@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { API_BASE } from '../api';
+
 
 const FeedbackForm = () => {
   const [feedback, setFeedback] = useState({ username: '', message: '' });
@@ -26,7 +28,7 @@ const FeedbackForm = () => {
       setLoading(true);
       console.log('Feedback Data:', feedback);  // Check the data being sent
 
-      const response = await axios.post('http://localhost:4000/api/v1/user/feedback', feedback);
+      const response = await axios.post(`${API_BASE}/user/feedback`, feedback,{withCredentials:true,});
 
       if (response.status === 201) {
         alert('Thank you for your feedback!');
