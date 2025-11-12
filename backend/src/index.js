@@ -10,24 +10,33 @@ const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:5173';
 // Initialize app
 const app = express();
 
-const corsOptions = {
-  origin: (origin, callback) => {
-    // allow requests with no origin (like mobile apps, curl, postman)
-    if (!origin) return callback(null, true);
-    if (origin === FRONTEND_URL || origin.includes('localhost')) {
-      return callback(null, true);
-    }
-    return callback(new Error('CORS policy: Not allowed by CORS'), false);
-  },
-  credentials: true,
-};
+
 // app.use(cors(corsOptions));
+const allowedOrigins = [
+  "https://r-r-salon-website-1.onrender.com", // frontend (Render)
+  "http://localhost:5173" // local dev (optional)
+];
+
+// ✅ CORS setup
 app.use(
   cors({
-    origin: ["https://r-r-salon-website-1.onrender.com", "http://localhost:5173"],
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     credentials: true,
   })
 );
+
+// app.use(
+//   cors({
+//     origin: ["https://r-r-salon-website-1.onrender.com", "http://localhost:5173"],
+//     credentials: true,
+//   })
+// );
 
 // Middleware for parsing JSON
 app.use(express.json());
