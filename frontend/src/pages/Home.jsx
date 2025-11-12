@@ -7,7 +7,7 @@ import Makeup  from '../assets/ServicesIMG/Makeup.jpeg'
 import SPAR from '../assets/ServicesIMG/SPAR.jpg'
 import SkinCare from '../assets/ServicesIMG/SkinCare.jpg'
 import WT from '../assets/ServicesIMG/WT.jpg'
-import Btn from "../components/btn";
+import Btn from "../components/Btn";
 
 
 const App = () => {
