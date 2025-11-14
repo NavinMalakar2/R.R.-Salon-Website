@@ -11,13 +11,14 @@ const FeedbackForm = () => {
     // Dynamically update state using e.target.name
     setFeedback({ ...feedback, [e.target.name]: e.target.value });
   };
-const token = localStorage.getItem("token"); // login ke time save kiya tha
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const token = localStorage.getItem("token"); // login ke time save kiya tha
 if (!token) {
   alert("Please login first!");
   return;
 }
-  const handleSubmit = async (e) => {
-    e.preventDefault();
 
     // Clear previous error message
     setError(null);
