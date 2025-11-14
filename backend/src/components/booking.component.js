@@ -6,7 +6,9 @@ const BookingService = async (req, res) => {
     const userId = req.user._id; 
     const { username, mobileNumber, slot, employe } = req.body; // Use req.body
     // console.log(username, mobileNumber, slot, employe);
-
+if (!username || !mobileNumber || !slot || !employe) {
+      return res.status(400).json({ message: "All fields are required" });
+    }
     // Check if a booking already exists for the same slot and employee
     const existingBooking = await UserBooking.findOne({ slot, employe });
     if (existingBooking) {

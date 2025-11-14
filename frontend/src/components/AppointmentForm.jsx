@@ -51,13 +51,13 @@ const AppointmentForm = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+const token = localStorage.getItem("token"); // login ke time save kiya tha
+if (!token) {
+  alert("Please login first!");
+  return;
+}
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const token = localStorage.getItem("token");
-  if (!token) {
-    alert("Please login first!");
-    return;
-  }
 
     // Prepare the booking data to send to the backend
     const bookingData = {

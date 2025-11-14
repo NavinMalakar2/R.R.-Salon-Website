@@ -11,7 +11,11 @@ const FeedbackForm = () => {
     // Dynamically update state using e.target.name
     setFeedback({ ...feedback, [e.target.name]: e.target.value });
   };
-
+const token = localStorage.getItem("token"); // login ke time save kiya tha
+if (!token) {
+  alert("Please login first!");
+  return;
+}
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -28,6 +32,7 @@ const FeedbackForm = () => {
       console.log('Feedback Data:', feedback);  // Check the data being sent
 
       const response = await axios.post('https://r-r-salon-website.onrender.com/api/v1/user/feedback', feedback,{withCredentials:true,headers: {
+        Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",
     },});
 
