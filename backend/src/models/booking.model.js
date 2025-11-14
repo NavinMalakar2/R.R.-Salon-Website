@@ -1,6 +1,7 @@
 import mongoose from 'mongoose'
 
 const bookingSchema= new mongoose.Schema({
+    userId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
     username:{type:String, required:true},
     // email: {type: String, required:true},
     mobileNumber:{type:Number,required:true},

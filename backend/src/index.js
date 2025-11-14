@@ -2,9 +2,17 @@ import express from 'express';
 import connectDB from './config/db.js';
 import dotenv from 'dotenv';
 import userRouter from './routes/user.route.js';
-import cors from 'cors'
+import cors from 'cors';
+import adminRouter from "./routes/admin.route.js";
+import path from "path";
+import { fileURLToPath } from "url";
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+dotenv.config({ path: path.resolve(__dirname, "../.env") });
 
-dotenv.config();
+
+
+
 // Use FRONTEND_URL from env; allow localhost in dev
 const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:5173';
 // Initialize app
@@ -31,12 +39,7 @@ app.use(
   })
 );
 
-// app.use(
-//   cors({
-//     origin: ["https://r-r-salon-website-1.onrender.com", "http://localhost:5173"],
-//     credentials: true,
-//   })
-// );
+
 
 // Middleware for parsing JSON
 app.use(express.json());
@@ -44,6 +47,8 @@ app.use(express.json());
 
 // API routes
 app.use('/api/v1/user',userRouter);
+app.use("/api/v1/admin", adminRouter);
+
 
 
 

@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { API_BASE } from '../api';
 
 const SignIn = () => {
   const [formData, setFormData] = useState({ email: '', password: '' });
@@ -19,7 +18,8 @@ const SignIn = () => {
     setError('');
 
     try {
-      // const response = await axios.post('https://r-r-salon-website.onrender.com/api/v1/user/login', formData);
+      // https://r-r-salon-website.onrender.com/api/v1/user/login
+      
       const response = await axios.post('https://r-r-salon-website.onrender.com/api/v1/user/login', formData, {
         withCredentials: true,
         headers: {
@@ -31,9 +31,20 @@ const SignIn = () => {
         // Store token in localStorage for session management
         localStorage.setItem('token', response.data.token);
         alert(response.data.message); // Show success message
-        navigate('/'); // Redirect to the homepage
-       // Refresh the current page
-        location.reload();
+      
+        
+       localStorage.setItem("isAdmin", response.data.isAdmin ? "true" : "false");
+       localStorage.setItem('user', JSON.stringify(response.data.user));
+console.log("isAdmin:", response.data.isAdmin);
+      alert(`Login success! Admin: ${response.data.isAdmin}`);
+
+        if (response.data.isAdmin) {
+          navigate("/admin/dashboard");
+        } else {
+          
+          navigate("/");
+          location.reload();
+        }
        
 
       } else {

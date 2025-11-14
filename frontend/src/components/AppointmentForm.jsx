@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios"; // Import axios to make API requests
-import { API_BASE } from "../api";
 const AppointmentForm = () => {
   const [formData, setFormData] = useState({
     name: "",
