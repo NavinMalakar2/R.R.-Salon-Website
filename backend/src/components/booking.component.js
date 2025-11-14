@@ -3,7 +3,7 @@ import UserBooking from '../models/booking.model.js';
 // Booking a service
 const BookingService = async (req, res) => {
   try {
-    const userId = req.user._id; 
+    const userId = req.user.id; 
     const { username, mobileNumber, slot, employe } = req.body; // Use req.body
     // console.log(username, mobileNumber, slot, employe);
 if (!username || !mobileNumber || !slot || !employe) {
