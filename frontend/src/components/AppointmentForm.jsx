@@ -53,6 +53,11 @@ const AppointmentForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const token = localStorage.getItem("token");
+  if (!token) {
+    alert("Please login first!");
+    return;
+  }
 
     // Prepare the booking data to send to the backend
     const bookingData = {
@@ -67,7 +72,8 @@ const AppointmentForm = () => {
       const response = await axios.post(
         'https://r-r-salon-website.onrender.com/api/v1/user/book',
         bookingData,{withCredentials:true,headers: {
-      "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
     },}
       );
 
