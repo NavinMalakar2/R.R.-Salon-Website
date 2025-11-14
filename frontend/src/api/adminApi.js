@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_BASE ='https://r-r-salon-website.onrender.com/'
+const API_BASE ='https://r-r-salon-website.onrender.com/api/v1/admin'
 // const API_BASE ='http://localhost:5000/api/v1'
 const base = API_BASE.replace(/\/$/, ""); // ensure no trailing slash
 const API = axios.create({
