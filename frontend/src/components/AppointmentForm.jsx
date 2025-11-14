@@ -57,7 +57,7 @@ const AppointmentForm = () => {
     // Prepare the booking data to send to the backend
     const bookingData = {
       username: formData.name,
-      mobileNumber: formData.mobileNumber,
+      mobileNumber: Number( formData.mobileNumber),
       slot: formData.dateTime,
       employe: formData.teamMember,
     };

@@ -3,6 +3,7 @@ import UserBooking from '../models/booking.model.js';
 // Booking a service
 const BookingService = async (req, res) => {
   try {
+    const userId = req.user._id; 
     const { username, mobileNumber, slot, employe } = req.body; // Use req.body
     // console.log(username, mobileNumber, slot, employe);
 
@@ -13,7 +14,7 @@ const BookingService = async (req, res) => {
     }
 
     // Create a new booking
-    const newBooking = new UserBooking({ username, mobileNumber, slot, employe });
+    const newBooking = new UserBooking({userId, username, mobileNumber, slot, employe });
     await newBooking.save();
 
     return res.status(201).json({ message: 'Appointment booked successfully!', booking: newBooking });

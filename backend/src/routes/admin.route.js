@@ -6,11 +6,12 @@ import dotenv from "dotenv"
 dotenv.config();
 
 import { verifyAdmin } from "../middleware/verifyAdmin.js";
+import { verifyToken } from "../middleware/verifyToken.js";
 
 const router = express.Router();
 
 // bookings
-router.get("/bookings", verifyAdmin, async (req, res) => {
+router.get("/bookings",verifyToken, verifyAdmin, async (req, res) => {
   try {
     const bookings = await UserBooking.find().populate("userId", "username email");
     res.json({ success: true, bookings });
@@ -20,7 +21,7 @@ router.get("/bookings", verifyAdmin, async (req, res) => {
 });
 
 // feedback
-router.get("/feedbacks", verifyAdmin, async (req, res) => {
+router.get("/feedbacks",verifyToken, verifyAdmin, async (req, res) => {
   try {
     const feedbacks = await Feedback.find().populate("userId", "username email");
     res.json({ success: true, feedbacks });
@@ -30,7 +31,7 @@ router.get("/feedbacks", verifyAdmin, async (req, res) => {
 });
 
 // user booking count
-router.get("/users", verifyAdmin, async (req, res) => {
+router.get("/users",verifyToken, verifyAdmin, async (req, res) => {
   try {
     const users = await User.aggregate([
       {
