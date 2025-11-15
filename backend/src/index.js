@@ -57,7 +57,13 @@ app.get('/', (req, res) => {
     res.send('server is runing');
 });
 
+// / Serve frontend build folder
+app.use(express.static(path.join(__dirname, "frontend/build")));
 
+// Handle React routing, return index.html for all unknown routes
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "frontend/build", "index.html"));
+});
 
 // Start the server
 const PORT = process.env.PORT || 3000;

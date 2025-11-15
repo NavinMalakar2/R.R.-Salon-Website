@@ -32,7 +32,7 @@ if (!token) {
     try {
       setLoading(true);
       console.log('Feedback Data:', feedback);  // Check the data being sent
-
+      // https://r-r-salon-website.onrender.com/api/v1/user/feedback
       const response = await axios.post('https://r-r-salon-website.onrender.com/api/v1/user/feedback', feedback,{withCredentials:true,headers: {
         Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",

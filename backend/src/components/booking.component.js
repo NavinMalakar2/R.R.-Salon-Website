@@ -16,7 +16,7 @@ if (!username || !mobileNumber || !slot || !employe) {
     }
 
     // Create a new booking
-    const newBooking = new UserBooking({userId, username, mobileNumber, slot, employe });
+    const newBooking = new UserBooking({userId:req.user.id, username, mobileNumber, slot, employe });
     await newBooking.save();
 
     return res.status(201).json({ message: 'Appointment booked successfully!', booking: newBooking });

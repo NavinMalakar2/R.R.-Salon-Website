@@ -27,9 +27,18 @@ const SignIn = () => {
     },
          // needed if you're using cookies/session
       });
+
+      console.log("LOGIN RESPONSE:", response.data);
+console.log("TOKEN FRONTEND KO MILA:", response.data.token);
+
+// Save kro token
+// localStorage.setItem("token", response.data.token);
+
+
       if (response.data.success) {
         // Store token in localStorage for session management
         localStorage.setItem('token', response.data.token);
+
         alert(response.data.message); // Show success message
       
         

@@ -1,20 +1,24 @@
-import axios from "axios";
 
-const API_BASE ='https://r-r-salon-website.onrender.com/api/v1'
-// const API_BASE ='http://localhost:5000/api/v1'
-const base = API_BASE.replace(/\/$/, ""); // ensure no trailing slash
-const API = axios.create({
-  baseURL: `${base}/admin`,
-  timeout: 15000,
+import axios from "axios";
+// const API_BASE ='https://r-r-salon-website.onrender.com/api/v1'
+const adminApi = axios.create({
+  baseURL: "https://r-r-salon-website.onrender.com/api/v1/admin",
 });
 
-API.interceptors.request.use((config) => {
+// Add token before every request
+adminApi.interceptors.request.use((config) => {
   const token = localStorage.getItem("token");
-  if (token) config.headers.Authorization = `Bearer ${token}`;
+  console.log("ADMIN API TOKEN:", token);
+
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+
   return config;
 });
 
-export const fetchBookings = () => API.get("/bookings");
-export const fetchFeedbacks = () => API.get("/feedbacks");
-export const fetchUsers = () => API.get("/users");
-export default API;
+export const fetchBookings = () => adminApi.get("/bookings");
+export const fetchFeedbacks = () => adminApi.get("/feedbacks");
+export const fetchUsers = () => adminApi.get("/users");
+
+export default adminApi;

@@ -42,9 +42,7 @@ export const login = async (req, res) => {
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) return res.status(400).json({ message: "Invalid password", success: false });
 
-    const payload = { _id: user._id.toString() };
-
-    const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "1d" });
+    
 
     // 👇 Ye log daal ke dekh
     console.log("User email:", user.email);
@@ -52,6 +50,10 @@ export const login = async (req, res) => {
     console.log("Admin ID from env:", process.env.ADMIN_ID);
     console.log("User ID:", user._id.toString());
 
+const payload = { id: user._id.toString(), email: user.email,role: "admin" };
+
+
+    const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "1d" });
     const isAdmin =
       user.email === process.env.ADMIN_EMAIL ||
       user._id.toString() === process.env.ADMIN_ID;
@@ -59,6 +61,7 @@ export const login = async (req, res) => {
 
 
     console.log("isAdmin check result:", isAdmin);
+    
 
     return res.status(200).json({
       message: isAdmin ? "Admin logged in successfully" : "User logged in successfully",

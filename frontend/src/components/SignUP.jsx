@@ -13,7 +13,7 @@ const SignUp = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(null);
-
+// https://r-r-salon-website.onrender.com/api/v1/user/ragister
     try {
       const response = await axios.post('https://r-r-salon-website.onrender.com/api/v1/user/ragister', formData,{withCredentials:true,headers: {
       "Content-Type": "application/json",
